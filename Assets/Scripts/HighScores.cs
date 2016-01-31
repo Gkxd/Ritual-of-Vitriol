@@ -56,6 +56,8 @@ public class HighScores : MonoBehaviour {
 
         nameField.text = "";
 
+        AudioManager.PlayYay();
+
         refreshDisplay();
         highScoreInput.SetActive(false);
     }

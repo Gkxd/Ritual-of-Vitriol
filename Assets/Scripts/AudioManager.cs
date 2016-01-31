@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class AudioManager : MonoBehaviour {
@@ -6,8 +7,10 @@ public class AudioManager : MonoBehaviour {
     public static AudioManager instance;
 
     public AudioClip[] bgmPool;
+    public string[] bgmCredits;
 
     public GameObject yaySfx;
+    public Text bgmCreditUI;
     
     [Range(0, 1)]
     public float bgmVolume;
@@ -15,6 +18,8 @@ public class AudioManager : MonoBehaviour {
     public float sfxVolume;
 
     private GameObject currentAudio;
+    private AudioSource bgmAudioSource;
+    private int bgmIndex = 0;
 
     void Start() {
         instance = this;
@@ -23,11 +28,30 @@ public class AudioManager : MonoBehaviour {
         currentAudio = new GameObject("BGM");
         currentAudio.transform.parent = transform;
 
-        AudioSource audio = currentAudio.AddComponent<AudioSource>();
-        audio.clip = bgmPool[0];
-        audio.loop = true;
-        audio.volume = bgmVolume;
-        audio.Play();
+        bgmAudioSource = currentAudio.AddComponent<AudioSource>();
+        bgmAudioSource.volume = bgmVolume;
+
+        bgmAudioSource.clip = bgmPool[bgmIndex];
+        bgmCreditUI.text = "BGM\n" + bgmCredits[bgmIndex];
+
+        bgmAudioSource.Play();
+
+        StartCoroutine(switchAudio());
+    }
+
+    private IEnumerator switchAudio() {
+        while (true) {
+            if (!bgmAudioSource.isPlaying) {
+                yield return new WaitForSeconds(1);
+                bgmIndex = (bgmIndex + Random.Range(1, bgmPool.Length)) % bgmPool.Length;
+
+                bgmAudioSource.clip = bgmPool[bgmIndex];
+                bgmCreditUI.text = "BGM\n" + bgmCredits[bgmIndex];
+
+                bgmAudioSource.Play();
+            }
+            yield return null;
+        }
     }
 
     public static void PlaySoundEffect(GameObject soundEffect) {
