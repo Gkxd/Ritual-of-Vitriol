@@ -21,7 +21,7 @@ public class Upvote : MonoBehaviour {
         }
     }
 
-    void OnMouseDown() {
+    public void clicked() {
         GameState.ClickUpvote();
         scale = 0.9f;
         GameObject effect = (GameObject)Instantiate(clickEffect);

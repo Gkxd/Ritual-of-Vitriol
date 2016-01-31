@@ -7,14 +7,19 @@ public class Level1 : MonoBehaviour {
 
     private bool nextLevelActivated;
 
+    void OnEnable() {
+        nextLevelActivated = false;
+    }
+
     void Update() {
         if (GameState.Downvotes > 10) {
             transform.Translate(0, -2 * Time.deltaTime, 0);
             if (transform.position.y < -10) {
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
 
             if (!nextLevelActivated) {
+                AudioManager.PlayYay();
                 nextLevel.SetActive(true);
                 nextLevelActivated = true;
             }

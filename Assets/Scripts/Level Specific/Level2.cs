@@ -15,7 +15,8 @@ public class Level2 : MonoBehaviour {
     void Update() {
         if (GameState.Downvotes > 25) {
             nextLevel.SetActive(true);
-            Destroy(gameObject);
+            AudioManager.PlayYay();
+            gameObject.SetActive(false);
         }
     }
 

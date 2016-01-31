@@ -8,10 +8,16 @@ public class TranslateObject : MonoBehaviour {
     void Update() {
         transform.Translate(speed * Time.deltaTime);
 
-        if (transform.position.y < -10) {
+        if (transform.position.y < -20) {
             Destroy(gameObject);
         }
-        if (transform.position.y > 10) {
+        else if (transform.position.y > 20) {
+            Destroy(gameObject);
+        }
+        if (transform.position.x > 30) {
+            Destroy(gameObject);
+        }
+        else if (transform.position.x < -30) {
             Destroy(gameObject);
         }
     }

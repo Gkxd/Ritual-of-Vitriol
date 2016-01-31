@@ -21,7 +21,7 @@ public class Downvote : MonoBehaviour {
         }
     }
 
-    void OnMouseDown() {
+    public void clicked() {
         GameState.ClickDownvote();
         scale = 0.9f;
         GameObject effect = (GameObject)Instantiate(clickEffect);

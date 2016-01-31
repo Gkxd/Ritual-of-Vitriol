@@ -6,6 +6,7 @@ public class GameState : MonoBehaviour {
     private static GameState s_instance;
     public static GameState Instance { get { return s_instance ?? (s_instance = createInstance()); } }
     public static int Downvotes { get { return s_instance ? s_instance.downvotesClicked : 0; } }
+    public static int Upvotes { get { return s_instance ? s_instance.upvotesClicked : 0; } }
     private static GameState createInstance() {
         GameObject stateObject = new GameObject("Game State");
         DontDestroyOnLoad(stateObject);
@@ -35,5 +36,13 @@ public class GameState : MonoBehaviour {
     public static void ClickUpvote() {
         Instance.upvotesClicked++;
         GameHP.RemoveHp();
+    }
+
+    private void resetGame() {
+        downvotesClicked = upvotesClicked = totalDownvotes = totalUpvotes = 0;
+    }
+
+    public static void ResetGame() {
+        Instance.resetGame();
     }
 }
