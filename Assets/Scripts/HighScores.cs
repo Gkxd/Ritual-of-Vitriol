@@ -47,6 +47,8 @@ public class HighScores : MonoBehaviour {
     }
 
     public void addHighScore(InputField nameField) {
+        if (nameField.text == "") return;
+
         highScoreList.Add(new HighScorePair(GameState.Downvotes, nameField.text));
         highScoreList.Sort((x, y) => y.score - x.score);
 
