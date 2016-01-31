@@ -28,14 +28,18 @@ public class GameState : MonoBehaviour {
     }
 
     public static void ClickDownvote() {
-        Instance.downvotesClicked++;
-        GameHP.AddHp();
-        GameScoreUI.SetDownvotes(Instance.downvotesClicked);
+        if (GameHP.instance.gameActive) {
+            Instance.downvotesClicked++;
+            GameHP.AddHp();
+            GameScoreUI.SetDownvotes(Instance.downvotesClicked);
+        }
     }
 
     public static void ClickUpvote() {
-        Instance.upvotesClicked++;
-        GameHP.RemoveHp();
+        if (GameHP.instance.gameActive) {
+            Instance.upvotesClicked++;
+            GameHP.RemoveHp();
+        }
     }
 
     private void resetGame() {

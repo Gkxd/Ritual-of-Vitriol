@@ -3,7 +3,6 @@ using System.Collections;
 
 public class MouseCursor : MonoBehaviour {
 
-    public float mouseSpeed;
     public LayerMask clickLayers;
     public GameObject clickEffect;
 
@@ -12,15 +11,13 @@ public class MouseCursor : MonoBehaviour {
     void Start() {
         transform.position = Vector3.Scale(Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector3(1, 1, 0));
         UnityEngine.Cursor.visible = false;
-        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+        //UnityEngine.Cursor.lockState = CursorLockMode.Locked;
 
         particleSystem = GetComponent<ParticleSystem>();
     }
 
     void Update() {
-        Vector3 mouseDirection = new Vector3(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"), 0);
-
-        transform.position += mouseDirection * mouseSpeed * Time.deltaTime;//Vector3.Scale(Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector3(1, 1, 0)) + mouseDirection * Time.deltaTime * 10;
+        transform.position = transform.position = Vector3.Scale(Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector3(1, 1, 0));
 
         float clampX = Mathf.Clamp(transform.position.x, -8.9f, 8.9f);
         float clampY = Mathf.Clamp(transform.position.y, -5, 5);
@@ -43,13 +40,6 @@ public class MouseCursor : MonoBehaviour {
                     }
                 }
             }
-        }
-
-        if (Input.GetKeyDown(KeyCode.UpArrow)) {
-            mouseSpeed = Mathf.Min(15, mouseSpeed + 1);
-        }
-        if (Input.GetKeyDown(KeyCode.DownArrow)) {
-            mouseSpeed = Mathf.Max(1, mouseSpeed - 1);
         }
     }
 }

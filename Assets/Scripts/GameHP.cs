@@ -15,7 +15,7 @@ public class GameHP : MonoBehaviour {
     public GameObject levels;
     public GameObject gameOverScreen;
 
-    private bool gameActive;
+    public bool gameActive { get; private set; }
 
     void Start() {
         instance = this;
