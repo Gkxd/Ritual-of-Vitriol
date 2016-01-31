@@ -42,7 +42,7 @@ public class AudioManager : MonoBehaviour {
     private IEnumerator switchAudio() {
         while (true) {
             if (!bgmAudioSource.isPlaying) {
-                yield return new WaitForSeconds(1);
+                yield return new WaitForSeconds(2);
                 bgmIndex = (bgmIndex + Random.Range(1, bgmPool.Length)) % bgmPool.Length;
 
                 bgmAudioSource.clip = bgmPool[bgmIndex];
@@ -51,6 +51,25 @@ public class AudioManager : MonoBehaviour {
                 bgmAudioSource.Play();
             }
             yield return null;
+        }
+    }
+
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.LeftArrow)) {
+            bgmIndex = (bgmIndex + bgmPool.Length - 1) % bgmPool.Length;
+
+            bgmAudioSource.clip = bgmPool[bgmIndex];
+            bgmCreditUI.text = "BGM\n" + bgmCredits[bgmIndex];
+
+            bgmAudioSource.Play();
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow)) {
+            bgmIndex = (bgmIndex + bgmPool.Length + 1) % bgmPool.Length;
+
+            bgmAudioSource.clip = bgmPool[bgmIndex];
+            bgmCreditUI.text = "BGM\n" + bgmCredits[bgmIndex];
+
+            bgmAudioSource.Play();
         }
     }
 
